@@ -1,12 +1,15 @@
 import math
 
-test = [5, 3, 7, 8, 2, 6, 1, 9]
+test = [5, 3, 7, 8, 2, 6, 1, 9, 12, 4, 22]
 
 def quicksort(array):
-	if len(array) <= 2:
+	if len(array) == 2:
+		max_elt = get_max(array)
+		min_elt = get_min(array, max_elt)
+		return [min_elt, max_elt]
+	if len(array) == 1:
 		return array
 	pivot = get_pivot(array)
-	print(pivot)
 	smaller_array = []
 	larger_array = []
 	index = 0
@@ -17,16 +20,12 @@ def quicksort(array):
 	for item in array:
 		if item >= pivot:
 			larger_array.append(item)
-	print(smaller_array)
-	print(larger_array)
 	sorted_lower_half = quicksort(smaller_array)
-	print("sorted lower: ", sorted_lower_half)
 	sorted_upper_half = quicksort(larger_array)
-	print("sorted upper: ", sorted_upper_half)
-	# return sorted_lower_half.extend(sorted_upper_half)
+
 	final_list = []
-	final_list.extend(smaller_array)
-	final_list.extend(larger_array)
+	final_list.extend(sorted_lower_half)
+	final_list.extend(sorted_upper_half)
 	return final_list
 
 def get_pivot(array):
